@@ -199,3 +199,99 @@ int main() {
 
   printf("O salario liquido é: %.2f\n", salario_liquido); }
   
+  else if (info == 3) {
+  
+  // cnpj
+  
+  
+  int regime = 0;
+    float ferias = 0, fgts = 0, multa_fgts = 0, deci_ter = 0, previdenciario = 0, salario_bruto = 0, custo_total = 0;
+    float receita = 0, receita_liquida = 0;
+    float acidente = 0, sal_ed = 0, descanso_sem = 0, sist_s = 0, dsr = 0, inss_pat = 0;
+    float cofins = 0, pis = 0, irpj = 0, csll = 0, impostos = 0;
+    float fat_tri = 0; 
+
+    printf("Digite o regime tributário da empresa\n1 para Simples Nacional e 2 para Lucro Real: ");
+    scanf("%d", &regime);
+
+    printf("Digite o salario bruto: ");
+    scanf("%f", &salario_bruto);
+
+    if (regime == 1) {
+        ferias = salario_bruto * 0.1111;
+        fgts = salario_bruto * 0.08;
+        multa_fgts = salario_bruto * 0.04;
+        deci_ter = salario_bruto * 0.0833;
+        previdenciario = salario_bruto * 0.0793;
+
+        custo_total = salario_bruto + ferias + fgts + multa_fgts + deci_ter + previdenciario;
+        printf("O custo total por um funcionário é: %.2f\n", custo_total);
+
+        int atividade = 0;
+        printf("Digite a atividade da empresa\n1 para Comércio e 2 para Indústria: ");
+        scanf("%d", &atividade);
+
+        printf("Digite a receita bruta da empresa: ");
+        scanf("%f", &receita);
+
+        if (atividade == 1) {
+            if (receita <= 180000) {
+                receita_liquida = receita - (receita * 0.04);
+            } else if (receita <= 360000) {
+                receita_liquida = receita - ((receita * 0.073) - 5940);
+            } else if (receita <= 720000) {
+                receita_liquida = receita - ((receita * 0.095) - 13860);
+            } else if (receita <= 1800000) {
+                receita_liquida = receita - ((receita * 0.107) - 22500);
+            } else if (receita <= 3600000) {
+                receita_liquida = receita - ((receita * 0.143) - 87300);
+            } else {
+                receita_liquida = receita - ((receita * 0.19) - 378000);
+            }
+        } else if (atividade == 2) {
+            if (receita <= 180000) {
+                receita_liquida = receita - (receita * 0.045);
+            } else if (receita <= 360000) {
+                receita_liquida = receita - ((receita * 0.078) - 5940);
+            } else if (receita <= 720000) {
+                receita_liquida = receita - ((receita * 0.1) - 13860);
+            } else if (receita <= 1800000) {
+                receita_liquida = receita - ((receita * 0.112) - 22500);
+            } else if (receita <= 3600000) {
+                receita_liquida = receita - ((receita * 0.147) - 85500);
+            } else {
+                receita_liquida = receita - ((receita * 0.3) - 720000);
+            }
+        }
+
+        printf("A receita liquida da empresa é: %.2f\n", receita_liquida);
+    } else if (regime == 2) {
+        ferias = salario_bruto * 0.1111;
+        fgts = salario_bruto * 0.08;
+        acidente = salario_bruto * 0.03;
+        sal_ed = salario_bruto * 0.025;
+        descanso_sem = salario_bruto * 0.2;
+        deci_ter = salario_bruto * 0.0833;
+        sist_s = salario_bruto * 0.033;
+        dsr = salario_bruto * 0.2;
+        inss_pat = salario_bruto * 0.2;
+
+        custo_total = salario_bruto + ferias + fgts + acidente + sal_ed + descanso_sem + deci_ter + sist_s + dsr + inss_pat;
+        printf("O custo total é: %.2f\n", custo_total);
+
+        printf("Digite o faturamento trimestral da empresa: ");
+        scanf("%f", &fat_tri); 
+
+        float luc_re = fat_tri * 0.2;
+        cofins = fat_tri * 0.076; 
+        pis = fat_tri * 0.0165; 
+        irpj = luc_re * 0.15; 
+        csll = luc_re * 0.09; 
+
+        impostos = cofins + pis + irpj + csll;
+
+        printf("O valor dos impostos é: %.2f\n", impostos);
+    }
+   }
+    return 0;
+}
